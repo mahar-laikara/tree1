@@ -1,0 +1,98 @@
+#include <iostream>
+
+using namespace std;
+typedef struct node 
+{
+    int info;
+    struct node*left, *right;
+}node;
+
+typedef struct 
+{
+    node*root;
+}tree;
+
+tree*maketree()
+{
+    tree*t;
+    t= new tree;
+    t->root=NULL;
+    return(t);
+}
+
+node*addnode(node*d,int v)
+{
+    if(d==NULL)
+    {
+        d= new node;
+        d->info=v;
+        d->left=NULL;
+        d->right=NULL;
+    }
+    else
+     if(v==d->info)
+     {
+         return(d);
+}
+else if(v<d->info)
+{
+    d->left=addnode(d->left,v);
+}
+else
+{
+    d->right=addnode(d->right,v);
+}
+return(d);
+}
+
+void preorder(node*d)
+{
+    if(d)  {
+        cout<<d->info;
+        preorder(d->left);
+        preorder(d->right);
+        
+    }
+}
+
+void inorder(node*d)
+{
+    if(d)  {
+        inorder(d->left);
+        cout<<d->info;
+        inorder(d->right);
+    }
+}
+
+void postorder(node*d) {
+    if(d)  {
+        postorder(d->left);
+        postorder(d->right);
+        cout<<d->info;
+    }
+}
+
+void addtree(tree*t, int v)
+{
+    t->root=addnode(t->root,v);
+    
+}
+
+int main()
+{
+    tree*s;
+    int i,v;
+    s=maketree(); 
+    for(i=0;i<4;i++) {
+        cin>>v;
+        addtree(s,v);
+        
+    }
+    cout<<("tree in preorder:");
+    preorder(s->root);
+    cout<<("\n tree in inorder:");
+    inorder(s->root);
+    cout<<("\n tree in postorder:");
+    postorder(s->root);
+    return 0;
+}
